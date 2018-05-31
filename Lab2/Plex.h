@@ -45,7 +45,7 @@ namespace Lab2 {
 	private: System::Windows::Forms::TextBox^  textBox2;
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::Label^  label2;
-	private: System::Windows::Forms::Button^  button1;
+
 
 	public:
 		Graphics ^ gr;
@@ -81,7 +81,6 @@ namespace Lab2 {
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// button2
@@ -138,22 +137,11 @@ namespace Lab2 {
 			this->label2->Text = L"Y";
 			this->label2->Click += gcnew System::EventHandler(this, &Plex::label2_Click);
 			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(779, 175);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(93, 43);
-			this->button1->TabIndex = 7;
-			this->button1->Text = L"button1";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &Plex::button1_Click);
-			// 
 			// Plex
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(896, 562);
-			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->textBox2);
@@ -220,8 +208,8 @@ private: System::Void Plex_MouseDown(System::Object^  sender, System::Windows::F
 	}
 	if (!plex->GetVisible()) {
 		
-		ChartPoint* A = new ChartPoint(e->X, e->Y);
-		LineNew->SetFirst(A);
+		CurrPoint = new ChartPoint(e->X, e->Y);
+		plex->SetFirst(CurrPoint);
 	}
 
 	
@@ -241,14 +229,12 @@ private: System::Void Plex_MouseUp(System::Object^  sender, System::Windows::For
 		plex->Show(gr, Pens::Black);
 	}
 	if (!plex->GetVisible()){
-		/*ChartPoint* B = new ChartPoint(e->X, e->Y);
-		plex->SetLast(B);
+	
+		PointsForm = new ChartPoint(e->X, e->Y);
+		plex->SetLast(PointsForm);
 		plex->Show(gr, Pens::Black);
-		plex->SetVisible(true);*/
-		ChartPoint* B = new ChartPoint(e->X, e->Y);
-		LineNew->SetLast(B);
-		plex->AddLine(gr, Pens::Black, CurrPoint, LineNew);
-		plex->Show(gr, Pens::Black);
+		plex->SetVisible(true);
+		
 	}
 }
 private: System::Void Plex_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
